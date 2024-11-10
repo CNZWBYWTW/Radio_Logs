@@ -1,0 +1,15 @@
+[
+    {
+        "call_sign": "BG1CWT",
+        "time": "1145-01-04",
+        "time-s": "11:45(UTC+8)",
+        "time-e": "19:19(UTC+8)",
+        "fq": "1145.000MHz",
+        "mode": "SSB",
+        "rst-t": "59",
+        "rst-r": "59",
+        "qth-t": "Liuzhou Guangxi China",
+        "qth-r": "Jining Shandong China",
+        "content": "Test Content(测试内容)"
+    }
+]

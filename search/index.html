@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search Radio Logs - CNZW</title>
+    <meta name="description" content="Radio by CNZW">
+    <meta name="keywords" content="CNZW, Radio">
+    <meta name="copyright" content="CNZW">
+    <link rel="icon" href="/img/CNZW/TB.png">
+    <link rel="stylesheet" href="/css/all.css">
+    <script src="/js/all.js"></script>
+</head>
+<style>
+    body {
+        background-color: black;
+    }
+</style>
+
+<body>
+    <div id="search">
+        <form method="get" action="./">
+            <input name="call_sign" placeholder="搜索">
+        </form>
+        <style>
+            #search {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 10vh;
+                background-color: black;
+                color: white;
+                border-bottom: white 1px solid;
+            }
+
+            #search form,
+            #search form input {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 10vh;
+                width: 100%;
+                font-size: 5vh;
+                text-align: center;
+                background-color: transparent;
+                color: white;
+                border: none;
+            }
+        </style>
+    </div>
+    <div id="tmb">
+        <style>
+            #tmb {
+                margin-bottom: 10vh;
+            }
+        </style>
+    </div>
+    <div>
+        <div id="index" class="href" onclick="location.href = '/'">回到主页</div>
+        <div id="list_all" class="href" onclick="location.search = '?call_sign=ALL'">显示所有通联日志</div>
+        <div id="list">
+            <table>
+                <tr>
+                    <td>呼号</td>
+                    <td>日期</td>
+                    <td>通联时间(开始)</td>
+                    <td>通联时间(结束)</td>
+                    <td>频率</td>
+                    <td>操作方式</td>
+                    <td>信号报告(收)</td>
+                    <td>信号报告(发)</td>
+                    <td>电台地理位置(收)</td>
+                    <td>电台地理位置(发)</td>
+                    <td>内容摘要</td>
+                </tr>
+            </table>
+        </div>
+        <style>
+            #list {
+                width: 100%;
+                color: #00ff00;
+                border-radius: 5px;
+                background-color: black;
+            }
+
+            #list tr td {
+                word-wrap: break-word;
+                border-left: #00ff00 3px solid;
+                border-right: #00ff00 3px solid;
+                border: #00ff00 3px solid;
+                text-align: center;
+            }
+
+            .href {
+                text-align: center;
+                font-size: 2.3vh;
+                color: white;
+                width: 50%;
+                display: inline-block;
+            }
+
+            #index {
+                float: left;
+            }
+
+            #list_all {
+                float: right;
+            }
+
+            .content {
+                word-break: break-all;
+            }
+        </style>
+    </div>
+    <script>
+        if (location.search.startsWith('?call_sign=') || location.search == '') {
+            document.querySelector("input[name=call_sign]").value = location.search.replace('?call_sign=', '');
+        } else {
+            alert('参数错误!');
+            location.search = '?call_sign=';
+        }
+        fetch('../communication_record.json')
+            .then(response => response.json())
+            .then(CNZW => {
+                list = CNZW;
+                list_m = CNZW.length - 1;
+                search_start(location.search.replace('?call_sign=', ''));
+            });
+        function search_start(search_call_sign) {
+            while (list_m > -1 && location.search.replace('?call_sign=', '') != '') {
+                if (list[list_m]['call_sign'].includes(search_call_sign)) {
+                    document.querySelector("#list table").innerHTML += `
+                    <tr>
+                       <td>${list[list_m]['call_sign']}</td>
+                        <td>${list[list_m]['time']}</td>
+                        <td>${list[list_m]['time-s']}</td>
+                        <td>${list[list_m]['time-e']}</td>
+                        <td>${list[list_m]['fq']}</td>
+                        <td>${list[list_m]['mode']}</td>
+                        <td>${list[list_m]['rst-t']}</td>
+                        <td>${list[list_m]['rst-r']}</td>
+                        <td>${list[list_m]['qth-t']}</td>
+                        <td>${list[list_m]['qth-r']}</td>
+                        <td class="content">${list[list_m]['content']}</td>
+                    </tr>
+                    `;
+                }
+                if (search_call_sign == 'ALL') {
+                    document.querySelector("#list table").innerHTML += `
+                    <tr>
+                       <td>${list[list_m]['call_sign']}</td>
+                        <td>${list[list_m]['time']}</td>
+                        <td>${list[list_m]['time-s']}</td>
+                        <td>${list[list_m]['time-e']}</td>
+                        <td>${list[list_m]['fq']}</td>
+                        <td>${list[list_m]['mode']}</td>
+                        <td>${list[list_m]['rst-t']}</td>
+                        <td>${list[list_m]['rst-r']}</td>
+                        <td>${list[list_m]['qth-t']}</td>
+                        <td>${list[list_m]['qth-r']}</td>
+                        <td class="content">${list[list_m]['content']}</td>
+                    </tr>
+                    `;
+                }
+                list_m = list_m - 1;
+            }
+        }
+    </script>
+    <!--footer-->
+    <footer id="footer">
+        <hr color="white" size="3" />
+        <a href="https://gitdub.com/CNZWBYWTW/" target="_blank" title="Gitdub:@CNZWBYWTW">
+            <img src="https://img.shields.io/badge/Gitdub-CNZWBYWTW-black" alt="Gitdub:@CNZWBYWTW">
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://space.bilibili.com/3493132140284888/" target="_blank" title="Bilibili:@CNZW">
+            <img src="https://img.shields.io/badge/Bilibili-CNZW-blue" alt="Bilibili:@CNZW">
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://x.com/CNZW_WTW" target="_blank" title="X:@CNZW_WTW">
+            <img src="https://img.shields.io/badge/X-CNZW__WTW-black" alt="X:@CNZW_WTW">
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://youtube.com/@CNZW-WTW" target="_blank" title="YouTube:@CNZW-WTW">
+            <img src="https://img.shields.io/badge/YouTube-CNZW--WTW-red" alt="YouTube:@CNZW-WTW">
+        </a>
+        <br>
+        <b>The page was created by <a href="https://cnzw.us.kg/">CNZW</a></b>
+        <br>
+        <!--copyright-->
+        <b id="copyright">
+            Copyright&copy;&nbsp;2023-
+            <b id="CPY">
+                114514
+            </b>
+            &nbsp;CNZW. All Right Reserved
+        </b>
+        <br>
+        <hr color="white" size="3" />
+        <script>
+            document.querySelector("#CPY").innerText = new Date().getFullYear();
+        </script>
+        <style>
+            footer {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+            }
+
+            footer a {
+                color: black;
+                text-decoration: none;
+            }
+        </style>
+    </footer>
+</body>
+
+</html>
