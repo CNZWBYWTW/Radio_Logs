@@ -10,6 +10,7 @@
         "rst-r": "59",
         "qth-t": "Liuzhou Guangxi China",
         "qth-r": "Jining Shandong China",
-        "content": "Test Content(测试内容)"
+        "content": "Test Content",
+        "note": "这是测试内容"
     }
 ]
