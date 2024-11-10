@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'MC';
+    src: url('/ttf/MC.ttf');
+}
+
+body {
+    cursor: url('/img/CNZW/cursor.png'), auto;
+}
+
+::selection {
+    background: rgb(0, 255, 0);
+    color: black;
+}
+
+#waifu-tips span {
+    font-family: 'MC';
+}
+
+footer {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.center {
+    text-align: center;
+}
+
+strong {
+    color: red;
+}
+
+.hide {
+    display: none;
+}
