@@ -141,7 +141,7 @@
                 if (list[list_m]['call_sign'].includes(search_call_sign)) {
                     document.querySelector("#list table").innerHTML += `
                     <tr>
-                       <td onclick="location.search = '?call_sign=${list[list_m]['call_sign']}'">${list[list_m]['call_sign']}</td>
+                        <td>${list[list_m]['call_sign']}</td>
                         <td>${list[list_m]['time']}</td>
                         <td>${list[list_m]['time-s']}</td>
                         <td>${list[list_m]['time-e']}</td>
@@ -159,7 +159,7 @@
                 if (search_call_sign == 'ALL') {
                     document.querySelector("#list table").innerHTML += `
                     <tr>
-                       <td onclick="location.search = '?call_sign=${list[list_m]['call_sign']}'">${list[list_m]['call_sign']}</td>
+                        <td onclick="location.search = '?call_sign=${list[list_m]['call_sign']}'">${list[list_m]['call_sign']}</td>
                         <td>${list[list_m]['time']}</td>
                         <td>${list[list_m]['time-s']}</td>
                         <td>${list[list_m]['time-e']}</td>
