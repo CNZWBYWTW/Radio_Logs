@@ -15,6 +15,15 @@
     body {
         background-color: black;
     }
+
+    error {
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        color: white;
+        font-size: 8vh;
+    }
 </style>
 
 <body>
@@ -61,7 +70,7 @@
     <div class="t-note">1. 日志中所有标有 "(发)" 的字段, 均为CNZW的电台信息</div>
     <div class="t-note">2. 日志中所有时间如无说明或标注, 均使用北京时间(UTC+8)</div>
     <style>
-        .t-note{
+        .t-note {
             text-align: center;
             color: white;
             font-size: 2vh;
@@ -69,7 +78,7 @@
     </style>
     <div>
         <div id="index" class="href" onclick="location.href = '/'">回到主页</div>
-        <div id="list_all" class="href" onclick="location.search = '?call_sign=ALL'">显示所有通联日志</div>
+        <div id="list_all" class="href" onclick="location.search = '?call_sign=ALL_LOGS'">显示所有通联日志</div>
         <div id="list">
             <table>
                 <tr>
@@ -151,7 +160,7 @@
                 if (list[list_m]['call_sign'].includes(search_call_sign)) {
                     document.querySelector("#list table").innerHTML += `
                     <tr>
-                        <td>${list[list_m]['call_sign']}</td>
+                        <td onclick="location.search = '?call_sign=${list[list_m]['call_sign']}'">${list[list_m]['call_sign']}</td>
                         <td>${list[list_m]['time']}</td>
                         <td>${list[list_m]['time-s']}</td>
                         <td>${list[list_m]['time-e']}</td>
@@ -165,8 +174,12 @@
                         <td class="content">${list[list_m]['note']}</td>
                     </tr>
                     `;
+                } else {
+                    if (search_call_sign != 'ALL_LOGS') {
+                        document.querySelector("#list").innerHTML = `<error>Not Found!</error>`;
+                    }
                 }
-                if (search_call_sign == 'ALL') {
+                if (search_call_sign == 'ALL_LOGS') {
                     document.querySelector("#list table").innerHTML += `
                     <tr>
                         <td onclick="location.search = '?call_sign=${list[list_m]['call_sign']}'">${list[list_m]['call_sign']}</td>
