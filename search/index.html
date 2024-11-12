@@ -70,6 +70,7 @@
     <div>
         <div id="index" class="href" onclick="location.href = '/'">回到主页</div>
         <div id="list_all" class="href" onclick="location.search = '?call_sign=ALL_LOGS'">显示所有通联日志</div>
+        <div id="no_call_sign" class="href" onclick="location.search = '?call_sign=NO_CALL_SIGN'">显示所有无呼号电台记录</div>
         <div id="list">
             <table>
                 <tr>
@@ -109,7 +110,7 @@
                 text-align: center;
                 font-size: 2.3vh;
                 color: white;
-                width: 50%;
+                width: 33.3%;
                 display: inline-block;
             }
 
@@ -118,6 +119,10 @@
             }
 
             #list_all {
+                float: initial;
+            }
+
+            #no_call_sign {
                 float: right;
             }
 
