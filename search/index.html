@@ -153,6 +153,9 @@
             });
         function search_start(search_call_sign) {
             while (list_m > -1 && location.search.replace('?call_sign=', '') != '') {
+                if (list[list_m]['call_sign'] == '') {
+                    list[list_m]['call_sign'] = 'NO_CALL_SIGN';
+                }
                 if (list[list_m]['call_sign'].includes(search_call_sign)) {
                     document.querySelector("#list table").innerHTML += `
                     <tr>
